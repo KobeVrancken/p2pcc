@@ -1,0 +1,66 @@
+#!$(PAL)
+
+loader.preload = file:$(SHIMPATH)
+loader.exec = file:fs/bin/la_wrapper_run
+loader.execname = la_wrapper_run
+loader.env.LD_LIBRARY_PATH = /lib:/lib/x86_64-linux-gnu:/usr/lib:/usr/lib/x86_64-linux-gnu:/fslib
+loader.env.PATH = /bin:/usr/bin
+loader.debug_type = $(DEBUGTYPE)
+
+fs.mount.lib1.type = chroot
+fs.mount.lib1.path = /lib
+fs.mount.lib1.uri = file:$(LIBCDIR)
+
+fs.mount.lib2.type = chroot
+fs.mount.lib2.path = /lib/x86_64-linux-gnu
+fs.mount.lib2.uri = file:/lib/x86_64-linux-gnu
+
+fs.mount.lib3.type = chroot
+fs.mount.lib3.path = /fslib
+fs.mount.lib3.uri = file:fs/lib
+
+fs.mount.usr.type = chroot
+fs.mount.usr.path = /usr
+fs.mount.usr.uri = file:/usr
+
+fs.mount.tmp.type = chroot
+fs.mount.tmp.path = /tmp
+fs.mount.tmp.uri = file:/tmp
+
+fs.mount.wrapper.type = chroot
+fs.mount.wrapper.path = /fsbin
+fs.mount.wrapper.uri = file:fs/bin
+
+net.allow_bind.1 = $(HOST):$(PORT)
+
+sgx.enclave_size = 128M
+
+sgx.trusted_files.ld = file:$(LIBCDIR)/ld-linux-x86-64.so.2
+sgx.trusted_files.libc = file:$(LIBCDIR)/libc.so.6
+sgx.trusted_files.libdl = file:$(LIBCDIR)/libdl.so.2
+sgx.trusted_files.libm = file:$(LIBCDIR)/libm.so.6
+sgx.trusted_files.libpthread = file:$(LIBCDIR)/libpthread.so.0
+
+sgx.trusted_files.libnsscompat = file:/lib/x86_64-linux-gnu/libnss_compat.so.2
+sgx.trusted_files.libnssfiles = file:/lib/x86_64-linux-gnu/libnss_files.so.2
+sgx.trusted_files.libnsl = file:/lib/x86_64-linux-gnu/libnsl.so.1
+sgx.trusted_files.libnss_nis = file:/lib/x86_64-linux-gnu/libnss_nis.so.2
+
+sgx.trusted_files.cc = file:/usr/bin/gcc
+#sgx.trusted_files.gcc2 = file:/usr/bin/x86_64-linux-gnu-gcc
+sgx.trusted_files.cc1 = file:$(GCCDIR)/cc1
+sgx.trusted_files.collect2 = file:$(GCCDIR)/collect2
+sgx.trusted_files.as = file:/usr/bin/as
+sgx.trusted_files.crypto = file:fs/lib/libcrypto.so.1.1
+sgx.trusted_files.distccd = file:fs/bin/distccd
+
+sgx.trusted_children.distccd = file:distccd.sig
+
+sgx.allowed_files.tmp = file:/tmp
+
+sgx.trusted_children.gcc = file:gcc.sig
+sgx.trusted_children.cc1 = file:cc1.sig
+sgx.trusted_children.collect2 = file:collect2.sig
+sgx.trusted_children.as = file:as.sig
+
+sgx.trusted_files.wrapper_so = file:fs/lib/la_preload.so

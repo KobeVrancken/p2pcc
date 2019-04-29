@@ -11,7 +11,6 @@ Warning
 ------------
 This is a research prototype. **Do not use any of this code in any real deployment.**
 It uses bad randomness, hard-coded keys, unsafe memory management and much more.
-The prototype is only meant as a proof-of-concept 
 
 Prerequisites
 ------------

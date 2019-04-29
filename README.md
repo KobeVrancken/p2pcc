@@ -9,7 +9,8 @@ Once the conference proceedings are publicly available, I will link the paper he
 
 Warning
 ------------
-This is a research prototype. **Do not use any of this code in any real deployment.**
+**Do not use any of this code in any real deployment.** 
+This is a research prototype.
 It uses bad randomness, hard-coded keys, unsafe memory management and much more.
 
 Prerequisites
